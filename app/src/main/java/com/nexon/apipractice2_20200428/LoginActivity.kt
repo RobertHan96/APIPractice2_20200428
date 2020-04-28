@@ -33,8 +33,8 @@ class LoginActivity : BaseActivity() {
                     if (code == 200) {
                         val data = json.getJSONObject("data")
                         val user = data.getJSONObject("user")
-                        val token = data.getJSONObject("token")
-//                        ContextUtil.setUserToken(mContext, token.toString())
+                        val token = data.getString("token")
+                        ContextUtil.setUserToken(mContext, token)
 
                         val myIntent = Intent(mContext, MyPageActivity::class.java)
                         startActivity(myIntent)
