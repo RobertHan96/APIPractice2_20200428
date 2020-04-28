@@ -37,8 +37,7 @@ class MyPageActivity : BaseActivity() {
     override fun setValues() {
         nameText.text = GlobalData.loginUser?.name
         phoneText.text = GlobalData.loginUser?.phoneNum
-
-
+        storeText.text = GlobalData.loginUser?.storeCategory?.title
 
     }
 
