@@ -1,10 +1,11 @@
 package com.nexon.apipractice2_20200428.datas
 
+import org.json.JSONObject
 import java.util.*
 
 class User {
     var id : Int = 0
-    var login_id = ""
+    var loginId = ""
     var name = ""
     var phoneNum = ""
     var memo = ""
@@ -13,5 +14,17 @@ class User {
     var storeCategory = Category()
     var createdAt = Calendar.getInstance()
 
+// JSONObject를 User클래스 객체로 파싱하는 함수
+    companion object {
+        fun getUserFromJsonObject(json : JSONObject) : User {
+            val parsedUser = User()
+            parsedUser.id = json.getInt("id")
+            parsedUser.loginId = json.getString("loginId")
+            parsedUser.name = json.getString("name")
+            parsedUser.phoneNum = json.getString("phoneNum")
+            parsedUser.memo = json.getString("memo")
 
+            return  parsedUser
+        }
+    }
 }

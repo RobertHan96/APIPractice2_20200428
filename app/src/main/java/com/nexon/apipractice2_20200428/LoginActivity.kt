@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.nexon.apipractice2_20200428.datas.User
 import com.nexon.apipractice2_20200428.utils.ConectServer
 import com.nexon.apipractice2_20200428.utils.ContextUtil
 import kotlinx.android.synthetic.main.activity_login.*
@@ -35,6 +36,8 @@ class LoginActivity : BaseActivity() {
                         val user = data.getJSONObject("user")
                         val token = data.getString("token")
                         ContextUtil.setUserToken(mContext, token)
+
+                        val loginUser = User.getUserFromJsonObject(user)
 
                         val myIntent = Intent(mContext, MyPageActivity::class.java)
                         startActivity(myIntent)
