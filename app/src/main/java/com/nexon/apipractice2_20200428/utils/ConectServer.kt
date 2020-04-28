@@ -1,7 +1,9 @@
 package com.nexon.apipractice2_20200428.utils
 
 import android.content.Context
+import android.util.Log
 import okhttp3.*
+import okhttp3.HttpUrl.Companion.toHttpUrlOrNull
 import org.json.JSONObject
 import java.io.IOException
 
@@ -13,6 +15,31 @@ class ConectServer {
 
     companion object {
         private val BASE_URL = "http://192.168.0.243:5000" // 개발용주소
+
+        fun getRequestMyInfo(context: Context, handler: JsonResponseHandler?) {
+            val client = OkHttpClient()
+            val urlBuilder = "${BASE_URL}/my_info".toHttpUrlOrNull()!!.newBuilder()
+            urlBuilder.addQueryParameter("os", "Android").build()
+            val urlString = urlBuilder.build().toString()
+            Log.d("완성된 주소", urlString)
+
+            val request = Request.Builder()
+                .url(urlString)
+                .header("X-Http-Token", ContextUtil.getUserToken(context))
+                .build()
+            client.newCall(request).enqueue(object  : Callback {
+                override fun onFailure(call: Call, e: IOException) {
+                    e.printStackTrace()
+                }
+
+                override fun onResponse(call: Call, response: Response) {
+                    val body = response.body!!.string()
+                    val json = JSONObject(body)
+                    handler?.onResponse(json)
+                }
+
+            })
+        }
 
         fun postRequestLogin(context: Context, id:String, pw:String, handler:JsonResponseHandler?) {
 
