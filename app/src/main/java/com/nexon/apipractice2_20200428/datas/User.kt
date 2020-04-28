@@ -19,9 +19,9 @@ class User {
         fun getUserFromJsonObject(json : JSONObject) : User {
             val parsedUser = User()
             parsedUser.id = json.getInt("id")
-            parsedUser.loginId = json.getString("loginId")
+            parsedUser.loginId = json.getString("login_id")
             parsedUser.name = json.getString("name")
-            parsedUser.phoneNum = json.getString("phoneNum")
+            parsedUser.phoneNum = json.getString("phone")
             parsedUser.memo = json.getString("memo")
 
             return  parsedUser
